@@ -1,8 +1,8 @@
 import mongoose,{Schema} from "mongoose";
 import bcrypt from 'bcrypt';
-import jsonwebtoken, { JsonWebTokenError } from 'jsonwebtoken';
+import jwt, { JsonWebToken } from 'jsonwebtoken';
 
-const userschema = new Schema(
+const userSchema = new Schema(
     {
   username:{
     type:String,
@@ -19,7 +19,7 @@ const userschema = new Schema(
     lowercase:true,
     trim:true
   },
-  Fullname:{
+  fullname:{
     type:String,
     required:true,
     trim:true,
@@ -62,7 +62,7 @@ userSchema.methods.generateAccessToken = function(){
     _id:this._id,
     email:this.email,
     username:this.username,
-    Fullname:this.Fullname
+    fullname:this.fullname
     
   },
   process.env.ACCESS_TOKEN_SECRET,
@@ -85,4 +85,4 @@ userSchema.methods.generateRefreshToken = function(){
 }
 
 
-export const User = mongoose.model("User",userschema)
+export const User = mongoose.model("User",userSchema)
